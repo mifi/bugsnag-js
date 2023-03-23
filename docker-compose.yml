@@ -242,6 +242,8 @@ services:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
       SKIP_NAVIGATION_SCENARIOS:
       HERMES:
     networks:
@@ -275,6 +277,8 @@ services:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
     volumes:
       - ./build:/app/build
       - ./test/react-native-cli/features/:/app/features/
