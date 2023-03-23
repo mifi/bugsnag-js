@@ -250,6 +250,8 @@ services:
       default:
         aliases:
           - maze-runner
+    ports:
+      - "9000-9499:9339"
     volumes:
       - ./build:/app/build
       - ./test/react-native/features/:/app/features
@@ -279,6 +281,8 @@ services:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
+    ports:
+      - "9000-9499:9339"
     volumes:
       - ./build:/app/build
       - ./test/react-native-cli/features/:/app/features/

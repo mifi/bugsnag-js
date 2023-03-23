@@ -719,6 +719,7 @@ steps:
             pull: react-native-cli-maze-runner
             run: react-native-cli-maze-runner
             use-aliases: true
+            service-ports: true
             command:
               - --app=build/rn0_67_hermes.apk
               - --farm=bb
