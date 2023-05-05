@@ -125,7 +125,7 @@ services:
       NODE_VERSION: "${NODE_VERSION:-10}"
       COMPOSE_PROJECT_NAME: "node${NODE_VERSION:-10}"
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-js-maze-runner}"
-      DEBUG:
+      DEBUG: 1
     networks:
       default:
         aliases:
