@@ -61,13 +61,22 @@ def find_cli_helper_script
 end
 
 When('I build the Android app') do
+
+  $logger.info 'SKW 1'
+
   script_path = find_cli_helper_script
   $logger.info `node -e 'require("#{script_path}").buildAndroid("./features/fixtures", "./local-build")'`
+
+  $logger.info 'SKW 2'
 end
 
 When('I build the iOS app') do
+  $logger.info 'SKW 1'
   path = find_cli_helper_script
-  $logger.info `node -e 'require("#{path}").buildIOS()'`
+  $logger.info 'SKW 2'
+  command = "node -e 'require(\"#{path}\").buildIOS()'"
+  Maze::Runner.run_command(command)
+  $logger.info 'SKW 3'
 end
 
 def parse_package_json

@@ -70,23 +70,35 @@ module.exports = {
         throw new Error('REACT_NATIVE_VERSION environment variable must be set')
       }
 
+      console.info('SKW a1')
+
       // JavaScript layer
       common.changeDir(`${targetDir}`)
+      console.info('SKW a2')
       common.run('npm install', true)
+      console.info('SKW a3')
 
       // Install and run the CLI
       const installCommand = `npm install @bugsnag/react-native-cli@${version}`
+      console.info('SKW a4')
       common.run(installCommand, true)
+      console.info('SKW a5')
 
       // Use Expect to run the init command interactively
       common.changeDir(`${initialDir}/${fixturesDir}`)
+      console.info('SKW a6')
       common.run(`./rn-cli-init-ios.sh ${version} ${rnVersion}`, true)
+      console.info('SKW a7')
 
       // Clean and build the archive
       common.changeDir(`${initialDir}/${fixturesDir}/${rnVersion}/ios`)
+      console.info('SKW a8')
       common.run(`rm -rf ../${rnVersion}.xcarchive`, true)
+      console.info('SKW a9')
       common.run('pod install || pod install --repo-update', true)
+      console.info('SKW a10')
       const archiveCmd = `xcrun xcodebuild -scheme "${rnVersion}" -workspace "${rnVersion}.xcworkspace" -configuration Release -archivePath "../${rnVersion}.xcarchive" -allowProvisioningUpdates archive`
+      console.info('SKW a11')
       common.run(archiveCmd, true)
     } catch (e) {
       console.error(e, e.stack)
