@@ -13,7 +13,6 @@ steps:
           limit: 1
 
   - label: ":ios: Build RN 0.68 Hermes ipa 6"
-    key: "rn-0-68-hermes-ipa"
     depends_on:
       - "publish-js"
     timeout_in_minutes: 60
@@ -34,7 +33,6 @@ steps:
         permit_on_passed: true
 
   - label: ":ios: Build RN 0.68 Hermes ipa 7"
-    key: "rn-0-68-hermes-ipa"
     depends_on:
       - "publish-js"
     timeout_in_minutes: 60
