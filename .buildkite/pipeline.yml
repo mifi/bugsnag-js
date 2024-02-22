@@ -15,6 +15,5 @@ steps:
     artifact_paths: build/rn0.72-old-arch.ipa
     commands:
       - rbenv shell 2.7.7
-      - echo `ruby -v`
       - bundle install
       - npm run test:build-react-native-ios
