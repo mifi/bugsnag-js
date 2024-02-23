@@ -24,10 +24,7 @@ steps:
       ARTEFACT_NAME: "rn0.72-old-arch"
     artifact_paths: build/rn0.72-old-arch.ipa
     commands:
-      - gem environment
-      - ruby --version
-      - bundle install
-      - npm run test:build-react-native-ios
+      - gem environment && ruby --version && bundle install && npm run test:build-react-native-ios
     retry:
       manual:
         permit_on_passed: true
