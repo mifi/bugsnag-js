@@ -1,2 +1,2 @@
-ecgho "In the script"
+echo "In the script"
 pod --version

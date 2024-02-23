@@ -1,1 +1,1 @@
-pod -v
+pod --version

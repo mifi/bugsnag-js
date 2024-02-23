@@ -11,7 +11,7 @@ steps:
       - "echo '***' && gem list"
       - "echo '***' && bundle install"
       - "echo '***' && gem list"
-      - "echo '***' && pod -v"
+      - "echo '***' && pod --version"
       - "echo '***' && echo $$PATH"
     retry:
       manual:
