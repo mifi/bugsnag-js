@@ -8,6 +8,9 @@ steps:
     commands:
       - gem environment
       - ruby --version
+    retry:
+      manual:
+        permit_on_passed: true
 
   - label: ":ios: Build RN 0.72 (Old Arch) ipa"
     key: "rn-0-72-old-arch-ipa"
@@ -27,3 +30,6 @@ steps:
       - ruby --version
       - bundle install
       - npm run test:build-react-native-ios
+    retry:
+      manual:
+        permit_on_passed: true
