@@ -23,8 +23,9 @@ steps:
     agents:
       queue: ms-arm-12-2
     commands:
+      - "bundle install"
       - "pod --version"
-      - ./scripts/pod.sh
+      - "./scripts/pod.sh"
     retry:
       manual:
         permit_on_passed: true
