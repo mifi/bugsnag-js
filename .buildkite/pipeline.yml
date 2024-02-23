@@ -1,15 +1,15 @@
 steps:
 
-  - label: ":ios: Build RN 0.72 (Old Arch) ipa"
-    timeout_in_minutes: 5
-    agents:
-      queue: "ms-arm-12-1"
-    commands:
-      - gem environment
-      - ruby --version
-    retry:
-      manual:
-        permit_on_passed: true
+#  - label: ":ios: Build RN 0.72 (Old Arch) ipa"
+#    timeout_in_minutes: 5
+#    agents:
+#      queue: "ms-arm-12-1"
+#    commands:
+#      - gem environment
+#      - ruby --version
+#    retry:
+#      manual:
+#        permit_on_passed: true
 
   - label: ":ios: Build RN 0.72 (Old Arch) ipa"
     timeout_in_minutes: 60
