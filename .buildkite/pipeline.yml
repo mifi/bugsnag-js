@@ -9,9 +9,10 @@ steps:
       queue: ms-arm-12-2
     commands:
       - echo "***" && gem list
-      - echo "***" && bundle install
+      - echo "***" && "bundle install"
       - echo "***" && gem list
-      - echo "***" && pod -v
+      - echo "***" && "pod -v"
+      - echo "***" && "echo $$PATH"
     retry:
       manual:
         permit_on_passed: true
