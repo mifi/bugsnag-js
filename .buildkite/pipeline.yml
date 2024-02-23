@@ -16,3 +16,24 @@ steps:
     retry:
       manual:
         permit_on_passed: true
+
+
+  - label: "Script"
+    timeout_in_minutes: 20
+    agents:
+      queue: ms-arm-12-2
+    commands:
+      - ./scripts/pod.sh
+    retry:
+      manual:
+        permit_on_passed: true
+
+  - label: "Script"
+    timeout_in_minutes: 20
+    agents:
+      queue: ms-arm-12-2
+    commands:
+      - "node -e 'require(\"./scripts/react-native-helper\").buildIOS()"
+    retry:
+      manual:
+        permit_on_passed: true
