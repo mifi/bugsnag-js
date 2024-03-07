@@ -1,63 +1,8 @@
 steps:
 
   #
-  # License audit
-  #
-  - label: ":copyright: License Audit"
-    timeout_in_minutes: 20
-    agents:
-      queue: macos-12-arm
-    env:
-      DEVELOPER_DIR: /Applications/Xcode13.4.app
-    command: scripts/license_finder.sh
-
-  #
-  # Java 11 Android builder base - used by React Native and React Native CLI (< 0.73)
-  #
-  - label: ":docker: Build Java 11 Android Builder base image"
-    key: "android-builder-base-java-11"
-    timeout_in_minutes: 30
-    plugins:
-      - docker-compose#v4.12.0:
-          build: android-builder-base-java-11
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/js
-          cache-from:  android-builder-base-java-11:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:android-builder-base-java-11
-      - docker-compose#v4.12.0:
-          push: android-builder-base-java-11:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:android-builder-base-java-11
-    retry:
-      automatic:
-        - exit_status: "*"
-          limit: 1
-
-  #
-  # Java 17 Android builder base - used by React Native (>= 0.73)
-  #
-  - label: ":docker: Build Java 17 Android Builder base image"
-    key: "android-builder-base-java-17"
-    timeout_in_minutes: 30
-    plugins:
-      - docker-compose#v4.12.0:
-          build: android-builder-base-java-17
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/js
-          cache-from:  android-builder-base-java-17:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:android-builder-base-java-17
-      - docker-compose#v4.12.0:
-          push: android-builder-base-java-17:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:android-builder-base-java-17
-    retry:
-      automatic:
-        - exit_status: "*"
-          limit: 1
-
-  #
   # Publish/package notifier
   #
-  - label: ":docker: Prepare package.json"
-    key: "package-js"
-    timeout_in_minutes: 3
-    plugins:
-      - docker-compose#v4.12.0:
-          run: minimal-packager
-    artifact_paths: min_packages.tar
-
   - label: ":docker: Build and publish JS packages"
     key: "publish-js"
     timeout_in_minutes: 30
@@ -72,99 +17,210 @@ steps:
         - exit_status: "*"
           limit: 1
 
-  - label: ":aws-lambda: AWS Lambda tests"
-    timeout_in_minutes: 35
-    agents:
-      queue: "opensource-mac-cocoa-10.15"
-    commands:
-      # force the NPM registry as the default on CI is artifactory, which can't
-      # currently install from our lockfile
-      - npm ci --registry https://registry.npmjs.org
-      - cd test/aws-lambda
-      - bundle install
-      - bundle exec maze-runner
+  - group: "Xcode 13"
+    depends_on: "publish-js"
+    steps:
 
-  #
-  # Core tests and checks
-  #
-  - label: ":docker: Build CI image"
-    key: "ci-image"
-    depends_on: "package-js"
-    timeout_in_minutes: 20
-    plugins:
-      - artifacts#v1.5.0:
-          download: min_packages.tar
-      - docker-compose#v4.12.0:
-          build:
-            - ci
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/js
-          cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:ci-base-${BRANCH_NAME}
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:ci-base
-      - docker-compose#v4.12.0:
-          push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:ci-base-${BRANCH_NAME}
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/js:ci-base
-    retry:
-      automatic:
-        - exit_status: "*"
-          limit: 1
+      #
+      # Test fixtures
+      #
+      - label: ":ios: Build RN 0.66 ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.66
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/rn0.66.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: "Lint"
-    depends_on: "ci-image"
-    timeout_in_minutes: 10
-    plugins:
-      docker-compose#v4.12.0:
-        run: ci
-    command: "npm run test:lint"
+      - label: ":ios: Build RN 0.67 ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.67
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/rn0.67.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: "Unit tests"
-    depends_on: "ci-image"
-    timeout_in_minutes: 10
-    plugins:
-      docker-compose#v4.12.0:
-        run: ci
-    command: "npm run test:unit"
+      - label: ":ios: Build RN 0.68 Hermes ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.68-hermes
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/rn0.68-hermes.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: "Type checks/tests"
-    depends_on: "ci-image"
-    timeout_in_minutes: 10
-    plugins:
-      docker-compose#v4.12.0:
-        run: ci
-    command: "npm run test:types"
+      - label: ":ios: Build RN 0.69 ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.69
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/rn0.69.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: BROWSER STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    depends_on: "package-js"
-    commands:
-      - buildkite-agent pipeline upload .buildkite/basic/browser-pipeline.yml
+      - label: ":ios: Build react-navigation 0.69 ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.69
+          JS_SOURCE_DIR: "react_navigation_js"
+          ARTEFACT_NAME: "r_navigation_0.69"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/r_navigation_0.69.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: ELECTRON STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    skip: Skipped pending PLAT-10345
-    commands:
-      - buildkite-agent pipeline upload .buildkite/basic/electron-pipeline.yml
+      # See: PLAT-5173
+      - label: ":ios: Build react-native-navigation 0.66 ipa"
+        skip: "See PLAT-5173"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: rn0.66
+          JS_SOURCE_DIR: "react_native_navigation_js"
+          ARTEFACT_NAME: "r_native_navigation_0.66"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode13.app"
+        artifact_paths: build/r_native_navigation_0.66.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: NODE STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    depends_on: "package-js"
-    commands:
-      - buildkite-agent pipeline upload .buildkite/basic/node-pipeline.yml
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: REACT NATIVE (ANDROID) STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    depends_on:
-      - "publish-js"
-      - "android-builder-base-java-17"
-    commands:
-      - buildkite-agent pipeline upload .buildkite/basic/react-native-android-pipeline.yml
+  - group: "Xcode 14"
+    depends_on: "publish-js"
+    steps:
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: REACT NATIVE (IOS) STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    depends_on:
-      - "publish-js"
-    commands:
-      - buildkite-agent pipeline upload .buildkite/basic/react-native-ios-pipeline.yml
+      - label: ":ios: Build RN 0.71 (Old Arch) ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: "rn0.71"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          RCT_NEW_ARCH_ENABLED: "0"
+          ARTEFACT_NAME: "rn0.71-old-arch"
+        artifact_paths: build/rn0.71-old-arch.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
 
-  #
-  # Conditionally trigger full pipeline
-  #
-  - label: 'Conditionally trigger full set of tests'
-    timeout_in_minutes: 30
-    command: sh -c .buildkite/pipeline_trigger.sh
+      - label: ":ios: Build RN 0.71 (New Arch) ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: "rn0.71"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          RCT_NEW_ARCH_ENABLED: "1"
+          ARTEFACT_NAME: "rn0.71-new-arch"
+        artifact_paths: build/rn0.71-new-arch.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
+
+      #
+      # Test fixtures
+      #
+      - label: ":ios: Build RN 0.72 (Old Arch) ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: "rn0.72"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          RCT_NEW_ARCH_ENABLED: "0"
+          ARTEFACT_NAME: "rn0.72-old-arch"
+        artifact_paths: build/rn0.72-old-arch.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
+
+      - label: ":ios: Build RN 0.72 (New Arch) ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          REACT_NATIVE_VERSION: "rn0.72"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          RCT_NEW_ARCH_ENABLED: "1"
+          ARTEFACT_NAME: "rn0.72-new-arch"
+        artifact_paths: build/rn0.72-new-arch.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
+
+      - label: ":ios: Build RN 0.73 (Old Arch) ipa"
+        timeout_in_minutes: 60
+        agents:
+          queue: "macos-12-arm"
+        env:
+          NODE_VERSION: "18"
+          REACT_NATIVE_VERSION: "rn0.73"
+          LANG: "en_US.UTF-8"
+          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          RCT_NEW_ARCH_ENABLED: "0"
+          ARTEFACT_NAME: "rn0.73-old-arch"
+        artifact_paths: build/rn0.73-old-arch.ipa
+        commands:
+          - npm run test:build-react-native-ios
+        retry:
+          automatic:
+            - exit_status: "*"
+              limit: 1
