@@ -142,7 +142,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: rn0.66
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/rn0.66.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -158,7 +158,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: rn0.67
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/rn0.67.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -174,7 +174,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: rn0.68-hermes
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/rn0.68-hermes.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -190,7 +190,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: rn0.69
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/rn0.69.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -208,7 +208,7 @@ steps:
           JS_SOURCE_DIR: "react_navigation_js"
           ARTEFACT_NAME: "r_navigation_0.69"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/r_navigation_0.69.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -228,7 +228,7 @@ steps:
           JS_SOURCE_DIR: "react_native_navigation_js"
           ARTEFACT_NAME: "r_native_navigation_0.66"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
         artifact_paths: build/r_native_navigation_0.66.ipa
         commands:
           - npm run test:build-react-native-ios
@@ -248,7 +248,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: "rn0.71"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
           RCT_NEW_ARCH_ENABLED: "0"
           ARTEFACT_NAME: "rn0.71-old-arch"
         artifact_paths: build/rn0.71-old-arch.ipa
@@ -266,7 +266,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: "rn0.71"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
           RCT_NEW_ARCH_ENABLED: "1"
           ARTEFACT_NAME: "rn0.71-new-arch"
         artifact_paths: build/rn0.71-new-arch.ipa
@@ -287,7 +287,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: "rn0.72"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
           RCT_NEW_ARCH_ENABLED: "0"
           ARTEFACT_NAME: "rn0.72-old-arch"
         artifact_paths: build/rn0.72-old-arch.ipa
@@ -305,7 +305,7 @@ steps:
         env:
           REACT_NATIVE_VERSION: "rn0.72"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
           RCT_NEW_ARCH_ENABLED: "1"
           ARTEFACT_NAME: "rn0.72-new-arch"
         artifact_paths: build/rn0.72-new-arch.ipa
@@ -324,7 +324,7 @@ steps:
           NODE_VERSION: "18"
           REACT_NATIVE_VERSION: "rn0.73"
           LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.app"
+          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
           RCT_NEW_ARCH_ENABLED: "0"
           ARTEFACT_NAME: "rn0.73-old-arch"
         artifact_paths: build/rn0.73-old-arch.ipa
