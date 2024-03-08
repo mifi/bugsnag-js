@@ -3,19 +3,19 @@ steps:
   #
   # Publish/package notifier
   #
-  - label: ":docker: Build and publish JS packages"
-    key: "publish-js"
-    timeout_in_minutes: 30
-    agents:
-      queue: "macos-12-arm"
-    env:
-      NODE_VERSION: "14"
-    command:
-      - "node scripts/publish.js $$PUBLISH_URL"
-    retry:
-      automatic:
-        - exit_status: "*"
-          limit: 1
+#  - label: ":docker: Build and publish JS packages"
+#    key: "publish-js"
+#    timeout_in_minutes: 30
+#    agents:
+#      queue: "macos-12-arm"
+#    env:
+#      NODE_VERSION: "14"
+#    command:
+#      - "node scripts/publish.js $$PUBLISH_URL"
+#    retry:
+#      automatic:
+#        - exit_status: "*"
+#          limit: 1
 
   - group: "Xcode 13"
     skip: "no xcode 13"
@@ -104,7 +104,6 @@ steps:
           - npm run test:build-react-native-ios
 
   - group: "Xcode 13 to 14 bump"
-    depends_on: "publish-js"
     steps:
 
       #
@@ -118,6 +117,7 @@ steps:
           REACT_NATIVE_VERSION: rn0.66
           LANG: "en_US.UTF-8"
           DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+          NOTIFIER_VERSION: "7.22.6"
         artifact_paths: build/rn0.66.ipa
         commands:
           - npm run test:build-react-native-ios
