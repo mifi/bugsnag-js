@@ -36,10 +36,6 @@ steps:
         artifact_paths: build/rn0.66.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.67 ipa"
         timeout_in_minutes: 60
@@ -52,10 +48,6 @@ steps:
         artifact_paths: build/rn0.67.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.68 Hermes ipa"
         timeout_in_minutes: 60
@@ -68,10 +60,6 @@ steps:
         artifact_paths: build/rn0.68-hermes.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.69 ipa"
         timeout_in_minutes: 60
@@ -84,10 +72,6 @@ steps:
         artifact_paths: build/rn0.69.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build react-navigation 0.69 ipa"
         timeout_in_minutes: 60
@@ -102,10 +86,6 @@ steps:
         artifact_paths: build/r_navigation_0.69.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       # See: PLAT-5173
       - label: ":ios: Build react-native-navigation 0.66 ipa"
@@ -122,11 +102,6 @@ steps:
         artifact_paths: build/r_native_navigation_0.66.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
-
 
   - group: "Xcode 13 to 14 bump"
     depends_on: "publish-js"
@@ -138,7 +113,7 @@ steps:
       - label: ":ios: Build RN 0.66 ipa"
         timeout_in_minutes: 60
         agents:
-          queue: "macos-12-arm"
+          queue: "ms-arm-12-2"
         env:
           REACT_NATIVE_VERSION: rn0.66
           LANG: "en_US.UTF-8"
@@ -146,98 +121,75 @@ steps:
         artifact_paths: build/rn0.66.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
-      - label: ":ios: Build RN 0.67 ipa"
-        timeout_in_minutes: 60
-        agents:
-          queue: "macos-12-arm"
-        env:
-          REACT_NATIVE_VERSION: rn0.67
-          LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
-        artifact_paths: build/rn0.67.ipa
-        commands:
-          - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
-
-      - label: ":ios: Build RN 0.68 Hermes ipa"
-        timeout_in_minutes: 60
-        agents:
-          queue: "macos-12-arm"
-        env:
-          REACT_NATIVE_VERSION: rn0.68-hermes
-          LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
-        artifact_paths: build/rn0.68-hermes.ipa
-        commands:
-          - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
-
-      - label: ":ios: Build RN 0.69 ipa"
-        timeout_in_minutes: 60
-        agents:
-          queue: "macos-12-arm"
-        env:
-          REACT_NATIVE_VERSION: rn0.69
-          LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
-        artifact_paths: build/rn0.69.ipa
-        commands:
-          - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
-
-      - label: ":ios: Build react-navigation 0.69 ipa"
-        timeout_in_minutes: 60
-        agents:
-          queue: "macos-12-arm"
-        env:
-          REACT_NATIVE_VERSION: rn0.69
-          JS_SOURCE_DIR: "react_navigation_js"
-          ARTEFACT_NAME: "r_navigation_0.69"
-          LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
-        artifact_paths: build/r_navigation_0.69.ipa
-        commands:
-          - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
-
-      # See: PLAT-5173
-      - label: ":ios: Build react-native-navigation 0.66 ipa"
-        skip: "See PLAT-5173"
-        timeout_in_minutes: 60
-        agents:
-          queue: "macos-12-arm"
-        env:
-          REACT_NATIVE_VERSION: rn0.66
-          JS_SOURCE_DIR: "react_native_navigation_js"
-          ARTEFACT_NAME: "r_native_navigation_0.66"
-          LANG: "en_US.UTF-8"
-          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
-        artifact_paths: build/r_native_navigation_0.66.ipa
-        commands:
-          - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
+#      - label: ":ios: Build RN 0.67 ipa"
+#        timeout_in_minutes: 60
+#        agents:
+#          queue: "macos-12-arm"
+#        env:
+#          REACT_NATIVE_VERSION: rn0.67
+#          LANG: "en_US.UTF-8"
+#          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+#        artifact_paths: build/rn0.67.ipa
+#        commands:
+#          - npm run test:build-react-native-ios
+#
+#      - label: ":ios: Build RN 0.68 Hermes ipa"
+#        timeout_in_minutes: 60
+#        agents:
+#          queue: "macos-12-arm"
+#        env:
+#          REACT_NATIVE_VERSION: rn0.68-hermes
+#          LANG: "en_US.UTF-8"
+#          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+#        artifact_paths: build/rn0.68-hermes.ipa
+#        commands:
+#          - npm run test:build-react-native-ios
+#
+#      - label: ":ios: Build RN 0.69 ipa"
+#        timeout_in_minutes: 60
+#        agents:
+#          queue: "macos-12-arm"
+#        env:
+#          REACT_NATIVE_VERSION: rn0.69
+#          LANG: "en_US.UTF-8"
+#          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+#        artifact_paths: build/rn0.69.ipa
+#        commands:
+#          - npm run test:build-react-native-ios
+#
+#      - label: ":ios: Build react-navigation 0.69 ipa"
+#        timeout_in_minutes: 60
+#        agents:
+#          queue: "macos-12-arm"
+#        env:
+#          REACT_NATIVE_VERSION: rn0.69
+#          JS_SOURCE_DIR: "react_navigation_js"
+#          ARTEFACT_NAME: "r_navigation_0.69"
+#          LANG: "en_US.UTF-8"
+#          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+#        artifact_paths: build/r_navigation_0.69.ipa
+#        commands:
+#          - npm run test:build-react-native-ios
+#
+#      # See: PLAT-5173
+#      - label: ":ios: Build react-native-navigation 0.66 ipa"
+#        skip: "See PLAT-5173"
+#        timeout_in_minutes: 60
+#        agents:
+#          queue: "macos-12-arm"
+#        env:
+#          REACT_NATIVE_VERSION: rn0.66
+#          JS_SOURCE_DIR: "react_native_navigation_js"
+#          ARTEFACT_NAME: "r_native_navigation_0.66"
+#          LANG: "en_US.UTF-8"
+#          DEVELOPER_DIR: "/Applications/Xcode14.1.app"
+#        artifact_paths: build/r_native_navigation_0.66.ipa
+#        commands:
+#          - npm run test:build-react-native-ios
 
   - group: "Xcode 14"
+    skip: "No 14 just now"
     depends_on: "publish-js"
     steps:
 
@@ -254,10 +206,6 @@ steps:
         artifact_paths: build/rn0.71-old-arch.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.71 (New Arch) ipa"
         timeout_in_minutes: 60
@@ -272,10 +220,6 @@ steps:
         artifact_paths: build/rn0.71-new-arch.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       #
       # Test fixtures
@@ -293,10 +237,6 @@ steps:
         artifact_paths: build/rn0.72-old-arch.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.72 (New Arch) ipa"
         timeout_in_minutes: 60
@@ -311,10 +251,6 @@ steps:
         artifact_paths: build/rn0.72-new-arch.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
 
       - label: ":ios: Build RN 0.73 (Old Arch) ipa"
         timeout_in_minutes: 60
@@ -330,7 +266,3 @@ steps:
         artifact_paths: build/rn0.73-old-arch.ipa
         commands:
           - npm run test:build-react-native-ios
-        retry:
-          automatic:
-            - exit_status: "*"
-              limit: 1
