@@ -230,6 +230,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.66.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -257,6 +258,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.67.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -285,6 +287,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.69.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -313,6 +316,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.68-hermes.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -341,6 +345,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.71-old-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -369,6 +374,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.71-new-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -397,6 +403,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.72-old-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -425,6 +432,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.72-new-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -453,6 +461,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/r_navigation_0.69.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -479,6 +488,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/r_native_navigation_0.66.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative

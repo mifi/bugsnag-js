@@ -78,6 +78,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.73-old-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -106,6 +107,7 @@ steps:
             run: react-native-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0.73-new-arch.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
