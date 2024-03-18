@@ -215,6 +215,7 @@ steps:
             run: react-native-cli-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0_66.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -240,6 +241,7 @@ steps:
             run: react-native-cli-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0_67.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
@@ -265,6 +267,7 @@ steps:
             run: react-native-cli-maze-runner
             service-ports: true
             command:
+              - --appium-version=1.22
               - --app=build/rn0_69.apk
               - --app-activity=com.reactnative.MainActivity
               - --app-package=com.reactnative
