@@ -31,9 +31,9 @@ export class FeatureFlagsScenario extends Scenario {
     }
 
     if (this.extraData && this.extraData.includes('unhandled')) {
-      throw new Error('FeatureFlagScenario unhandled')
+      throw new Error('FeatureFlagsScenario unhandled')
     } else {
-      Bugsnag.notify(new Error('FeatureFlagScenario handled'))
+      Bugsnag.notify(new Error('FeatureFlagsScenario handled'))
     }
   }
 }
