@@ -3,8 +3,8 @@ Feature: Metadata
 Scenario: Setting metadata (JS)
   When I run "MetadataJsScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "MetadataJsScenario"
+  And the exception "errorClass" equals "Error"
   And the event "metaData.jsdata.some_data" equals "set via config"
   And the event "metaData.jsdata.some_more_data" equals "set via client"
   And the event "metaData.jsdata.even_more_data" equals "set via event"
@@ -16,10 +16,10 @@ Scenario: Setting metadata (JS)
 Scenario: Setting metadata (native handled)
   When I run "MetadataNativeScenario"
   Then I wait to receive an error
+  And the exception "message" equals "MetadataNativeScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "MetadataNativeScenario"
   And the event "metaData.nativedata.some_data" equals "set via config"
   And the event "metaData.nativedata.some_more_data" equals "set via client"
   And the event "metaData.nativedata.even_more_data" equals "set via event"
@@ -32,10 +32,10 @@ Scenario: Setting metadata (native unhandled)
   And I relaunch the app after a crash
   And I configure Bugsnag for "MetadataNativeUnhandledScenario"
   Then I wait to receive an error
+  And the exception "message" equals "MetadataNativeUnhandledScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "MetadataNativeUnhandledScenario"
   And the event "metaData.nativedata.some_data" equals "set via config"
   And the event "metaData.nativedata.some_more_data" equals "set via client"
   # Skipped on iOS as callbacks cannot be added outside of config

@@ -4,8 +4,8 @@ Feature: iOS Device data
 Scenario: Handled JS error
   When I run "DeviceJsHandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "DeviceJsHandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
 
   And the event "device.id" matches "^(\d|[abcdef]){40}$"
@@ -31,8 +31,8 @@ Scenario: Unhandled JS error
   When I run "DeviceJsUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "DeviceJsUnhandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "DeviceJsUnhandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is true
 
   And the event "device.id" matches "^(\d|[abcdef]){40}$"

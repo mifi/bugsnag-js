@@ -3,8 +3,8 @@ Feature: App data
 Scenario: Handled JS error
   When I run "AppJsHandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "AppJsHandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "app.version" equals "1.2.3"
   # Parameter not present on iOS devices
@@ -27,8 +27,8 @@ Scenario: Unhandled JS error
   When I run "AppJsUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "AppJsUnhandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "AppJsUnhandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is true
   And the event "app.version" equals "1.2.3"
   # Parameter not present on iOS devices
@@ -50,10 +50,10 @@ Scenario: Unhandled JS error
 Scenario: Handled native error
   When I run "AppNativeHandledScenario"
   Then I wait to receive an error
+  And the exception "message" equals "AppNativeHandledScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "AppNativeHandledScenario"
   And the event "unhandled" is false
   And the event "app.version" equals "1.2.3"
   # Parameter not present on iOS devices
@@ -76,10 +76,10 @@ Scenario: Unhandled native error
   When I run "AppNativeUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "AppNativeUnhandledScenario"
   Then I wait to receive an error
+  And the exception "message" equals "AppNativeUnhandledScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "AppNativeUnhandledScenario"
   And the event "unhandled" is true
   And the event "app.version" equals "1.2.3"
   # Parameter not present on iOS devices
@@ -101,24 +101,24 @@ Scenario: Unhandled native error
 Scenario: Setting appType in configuration
   When I run "AppConfigAppTypeScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "AppConfigAppTypeScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "app.type" equals "mobileclient"
 
 Scenario: Setting releaseStage in configuration
   When I run "AppConfigReleaseStageScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "AppConfigReleaseStageScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "app.releaseStage" equals "staging"
 
 Scenario: Setting releaseStage and enabledReleaseStages to enable delivery
   When I run "AppConfigEnabledReleaseStagesScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "AppConfigEnabledReleaseStagesScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "app.releaseStage" equals "preprod"
 

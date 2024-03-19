@@ -4,8 +4,8 @@ Feature: Android Device data
 Scenario: Handled JS error
   When I run "DeviceJsHandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "DeviceJsHandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
 
   And the event "device.id" is not null
@@ -28,8 +28,8 @@ Scenario: Unhandled JS error
   When I run "DeviceJsUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "DeviceJsUnhandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "DeviceJsUnhandledScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is true
 
   And the event "device.id" is not null
@@ -52,10 +52,9 @@ Scenario: Handled native error
   When I run "DeviceNativeHandledScenario"
   And I configure Bugsnag for "DeviceNativeHandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "java.lang.RuntimeException"
   And the exception "message" equals "DeviceNativeHandledScenario"
+  And the exception "errorClass" equals "java.lang.RuntimeException"
   And the event "unhandled" is false
-
   And the event "device.id" is not null
   And the event "device.jailbroken" is false
   And the event "device.locale" matches "^[a-z]{2}_[A-Z]{2}$"
@@ -76,8 +75,8 @@ Scenario: Unhandled native error
   When I run "DeviceNativeUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "DeviceNativeUnhandledScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "java.lang.RuntimeException"
   And the exception "message" equals "DeviceNativeUnhandledScenario"
+  And the exception "errorClass" equals "java.lang.RuntimeException"
   And the event "unhandled" is true
 
   And the event "device.id" is not null

@@ -44,8 +44,8 @@ Scenario: Manual JS sessions (JS Controls)
   And I discard the oldest session
 
   # Error triggered after the first session is started
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioA"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -54,16 +54,16 @@ Scenario: Manual JS sessions (JS Controls)
   And I discard the oldest error
 
   # Error triggered after the first session is paused
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioB"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is null
 
   And I discard the oldest error
 
   # Error triggered after the first session is resumed
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioC"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -77,8 +77,8 @@ Scenario: Manual JS sessions (JS Controls)
   And the session payload field "sessions.0.id" is stored as the value "second_session_id"
 
   # Error triggered after the second session is started
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioD"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "second_session_id"
@@ -106,8 +106,8 @@ Scenario: Manual JS sessions (Native Controls)
   And I discard the oldest session
 
   # Error triggered after the first session is started
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioA"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -116,16 +116,16 @@ Scenario: Manual JS sessions (Native Controls)
   And I discard the oldest error
 
   # Error triggered after the first session is paused
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioB"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is null
 
   And I discard the oldest error
 
   # Error triggered after the first session is resumed
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioC"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -139,8 +139,8 @@ Scenario: Manual JS sessions (Native Controls)
   And the session payload field "sessions.0.id" is stored as the value "second_session_id"
 
   # Error triggered after the second session is started
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "SessionJsControlledManualJsScenarioD"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "second_session_id"
@@ -167,10 +167,10 @@ Scenario: Manual Native sessions (JS Controls)
   And I discard the oldest session
 
   # Error triggered after the first session is started
+  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -179,20 +179,20 @@ Scenario: Manual Native sessions (JS Controls)
   And I discard the oldest error
 
   # Error triggered after the first session is paused
+  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "unhandled" is false
   And the event "session" is null
 
   And I discard the oldest error
 
   # Error triggered after the first session is resumed
+  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "initial_session_id"
@@ -206,10 +206,10 @@ Scenario: Manual Native sessions (JS Controls)
   And the session payload field "sessions.0.id" is stored as the value "second_session_id"
 
   # Error triggered after the second session is started
+  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
   | android | java.lang.RuntimeException |
   | ios     | NSException                |
-  And the exception "message" equals "HandledNativeErrorScenario"
   And the event "unhandled" is false
   And the event "session" is not null
   And the error payload field "events.0.session.id" equals the stored value "second_session_id"

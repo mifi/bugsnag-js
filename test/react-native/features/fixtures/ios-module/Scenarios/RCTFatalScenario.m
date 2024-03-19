@@ -10,7 +10,7 @@
 
 - (void)run:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
   RCTFatal([NSError errorWithDomain:@"MyErrorDomain" code:1 userInfo:@{
-    NSLocalizedDescriptionKey: @"Should not be discarded by BugsnagReactNativePlugin's OnSendErrorBlock"}]);
+    NSLocalizedDescriptionKey: @"RCTFatalScenario"}]);
 }
 
 @end

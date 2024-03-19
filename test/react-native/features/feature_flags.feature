@@ -3,6 +3,7 @@ Feature: Reporting with feature flags
 Scenario: Sends handled exception which includes feature flags
   When I run "FeatureFlagsScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario handled"
   And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And event 0 contains the feature flag "demo_mode" with no variant
@@ -14,6 +15,7 @@ Scenario: Sends handled exception which includes feature flags added in the noti
   When I configure the app to run in the "callback" state
   And I run "FeatureFlagsScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario handled"
   And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And event 0 contains the feature flag "demo_mode" with no variant
@@ -27,6 +29,7 @@ Scenario: Sends unhandled exception which includes feature flags added in the no
   And I run "FeatureFlagsScenario" and relaunch the crashed app
   And I configure Bugsnag for "FeatureFlagsScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario unhandled"
   And the exception "errorClass" equals "Error"
   And the event "unhandled" is true
   And event 0 contains the feature flag "demo_mode" with no variant
@@ -39,6 +42,7 @@ Scenario: Sends no feature flags after clearFeatureFlags()
   When I configure the app to run in the "cleared" state
   And I run "FeatureFlagsScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario handled"
   And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And event 0 has no feature flags
@@ -47,6 +51,7 @@ Scenario: Sends JS feature flags in a native crash
   When I run "FeatureFlagsNativeCrashScenario" and relaunch the crashed app
   And I configure Bugsnag for "FeatureFlagsNativeCrashScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario handled"
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
     | android | java.lang.RuntimeException |
     | ios     | NSException                |
@@ -63,6 +68,7 @@ Scenario: Sends JS feature flags in a native crash
 Scenario: Sends native feature flags in JS errors
   When I run "NativeFeatureFlagsScenario"
   Then I wait to receive an error
+  And the exception "message" equals "FeatureFlagsScenario handled"
   And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And event 0 contains the feature flag "native_flag" with no variant

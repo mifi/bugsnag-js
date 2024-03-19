@@ -3,8 +3,8 @@ Feature: Context
 Scenario: JS default context
   When I run "ContextJsDefaultScenario"
   Then I wait to receive an error
-  And the exception "errorClass" equals "Error"
   And the exception "message" equals "ContextJsDefaultScenario"
+  And the exception "errorClass" equals "Error"
   And the event "unhandled" is false
   And the event "context" is null
 

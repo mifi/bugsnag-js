@@ -4,11 +4,11 @@ Feature: Native stacktrace is parsed for promise rejections
 Scenario: Handled JS error with native stacktrace
   When I run "NativeStackHandledScenario"
   Then I wait to receive an error
+  And the event "exceptions.0.message" equals "NativeStackHandledScenario"
+  And the event "exceptions.0.errorClass" equals "Error"
+  And the event "exceptions.0.type" equals "reactnativejs"
   And the event "unhandled" is false
   And the error payload field "events.0.exceptions" is an array with 1 elements
-  And the event "exceptions.0.errorClass" equals "Error"
-  And the event "exceptions.0.message" equals "NativeStackHandledScenario"
-  And the event "exceptions.0.type" equals "reactnativejs"
   And the error payload field "events.0.exceptions.0.stacktrace" is a non-empty array
 
   # the native part of the stack comes first
