@@ -10,11 +10,11 @@ steps:
     commands:
       - buildkite-agent pipeline upload .buildkite/full/react-native-android-pipeline.full.yml
 
-  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: FULL REACT NATIVE (IOS) STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
-    depends_on:
-    - "publish-js"
-    commands:
-      - buildkite-agent pipeline upload .buildkite/full/react-native-ios-pipeline.full.yml
+#  - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: FULL REACT NATIVE (IOS) STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
+#    depends_on:
+#    - "publish-js"
+#    commands:
+#      - buildkite-agent pipeline upload .buildkite/full/react-native-ios-pipeline.full.yml
 
   - label: ":large_blue_circle: :large_blue_circle: :large_blue_circle: REACT NATIVE CLI STEPS :large_blue_circle: :large_blue_circle: :large_blue_circle:"
     depends_on:
@@ -27,37 +27,37 @@ steps:
   # Trigger Expo pipelines
   # TODO: Skip pending PLAT-11676 and PLAT-11745
   #
-  - label: "@bugsnag/expo latest"
-    skip: PLAT-11676 and PLAT-11745
-    depends_on: "publish-js"
-    trigger: "bugsnag-expo"
-    build:
-      # don't specify 'branch' here so we build the default branch in the expo
-      # repo, which should be the most up-to-date @bugsnag/expo version
-      env:
-        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
-        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
-        # a branch name that's safe to use as a docker cache identifier
-        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
-
-  - label: "@bugsnag/expo v49/next"
-    depends_on: "publish-js"
-    trigger: "bugsnag-expo"
-    build:
-      branch: "v49/next"
-      env:
-        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
-        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
-        # a branch name that's safe to use as a docker cache identifier
-        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
-
-  - label: "@bugsnag/expo v48/next"
-    depends_on: "publish-js"
-    trigger: "bugsnag-expo"
-    build:
-      branch: "v48/next"
-      env:
-        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
-        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
-        # a branch name that's safe to use as a docker cache identifier
-        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
+#  - label: "@bugsnag/expo latest"
+#    skip: PLAT-11676 and PLAT-11745
+#    depends_on: "publish-js"
+#    trigger: "bugsnag-expo"
+#    build:
+#      # don't specify 'branch' here so we build the default branch in the expo
+#      # repo, which should be the most up-to-date @bugsnag/expo version
+#      env:
+#        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
+#        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
+#        # a branch name that's safe to use as a docker cache identifier
+#        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
+#
+#  - label: "@bugsnag/expo v49/next"
+#    depends_on: "publish-js"
+#    trigger: "bugsnag-expo"
+#    build:
+#      branch: "v49/next"
+#      env:
+#        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
+#        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
+#        # a branch name that's safe to use as a docker cache identifier
+#        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
+#
+#  - label: "@bugsnag/expo v48/next"
+#    depends_on: "publish-js"
+#    trigger: "bugsnag-expo"
+#    build:
+#      branch: "v48/next"
+#      env:
+#        BUGSNAG_JS_BRANCH: "${BUILDKITE_BRANCH}"
+#        BUGSNAG_JS_COMMIT: "${BUILDKITE_COMMIT}"
+#        # a branch name that's safe to use as a docker cache identifier
+#        BUGSNAG_JS_CACHE_SAFE_BRANCH_NAME: "${BRANCH_NAME}"
