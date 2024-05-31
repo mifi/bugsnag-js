@@ -21,8 +21,8 @@ jest.mock('react-native', () => ({
       resumeSession: jest.fn(),
       addFeatureFlags: jest.fn(),
       leaveBreadcrumb: jest.fn(),
-      getPayloadInfo: jest.fn().mockReturnValue({}),
-      dispatch: jest.fn().mockResolvedValue(true)
+      getPayloadInfoAsync: jest.fn().mockResolvedValue({}),
+      dispatchAsync: jest.fn().mockResolvedValue(true)
     }
   },
   Platform: {
@@ -78,7 +78,7 @@ describe('react native notifier', () => {
       if (err) {
         done(err)
       }
-      expect(NativeClient.dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      expect(NativeClient.dispatchAsync).toHaveBeenCalledWith(expect.objectContaining({
         errors: expect.arrayContaining([
           expect.objectContaining({
             errorClass: 'Error',

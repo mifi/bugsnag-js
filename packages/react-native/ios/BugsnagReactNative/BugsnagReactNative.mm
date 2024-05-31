@@ -64,9 +64,7 @@ RCT_EXPORT_METHOD(updateUser:(NSString *)userId
     [Bugsnag setUser:userId withEmail:email andName:name];
 }
 
-RCT_EXPORT_METHOD(dispatch:(NSDictionary *)payload
-                   resolve:(RCTPromiseResolveBlock)resolve
-                    reject:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(dispatch:(NSDictionary *)payload) {
     BugsnagEventDeserializer *deserializer = [BugsnagEventDeserializer new];
     BugsnagEvent *event = [deserializer deserializeEvent:payload];
 
@@ -74,7 +72,13 @@ RCT_EXPORT_METHOD(dispatch:(NSDictionary *)payload
         NSLog(@"Sending event from JS: %@", event);
         return true;
     }];
-    resolve(@{});
+    return [NSNumber numberWithBool:YES];
+}
+
+RCT_EXPORT_METHOD(dispatchAsync:(NSDictionary *)payload
+                   resolve:(RCTPromiseResolveBlock)resolve
+                    reject:(RCTPromiseRejectBlock)reject) {
+    resolve([self dispatch:payload]);
 }
 
 RCT_EXPORT_METHOD(leaveBreadcrumb:(NSDictionary *)options) {
@@ -134,9 +138,8 @@ RCT_EXPORT_METHOD(clearFeatureFlags) {
     [Bugsnag clearFeatureFlags];
 }
 
-RCT_EXPORT_METHOD(getPayloadInfo:(NSDictionary *)options
-                         resolve:(RCTPromiseResolveBlock)resolve
-                          reject:(RCTPromiseRejectBlock)reject) {
+// TODO: callstack adjustment?
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getPayloadInfo:(NSDictionary *)options) {
     BugsnagClient *client = [Bugsnag client];
     NSMutableDictionary *info = [NSMutableDictionary new];
     NSDictionary *systemInfo = BSGGetSystemInfo();
@@ -170,7 +173,13 @@ RCT_EXPORT_METHOD(getPayloadInfo:(NSDictionary *)options
         NSArray<BugsnagThread *> *threads = [BugsnagThread allThreads:recordAllThreads callStackReturnAddresses:callStack];
         [BugsnagThread serializeThreads:threads];
     });
-    resolve(info);
+    return info;
+}
+
+RCT_EXPORT_METHOD(getPayloadInfoAsync:(NSDictionary *)options
+                         resolve:(RCTPromiseResolveBlock)resolve
+                          reject:(RCTPromiseRejectBlock)reject) {
+    resolve([self getPayloadInfo:options]);
 }
 
 - (void)addRuntimeVersionInfo:(NSDictionary *)info {
