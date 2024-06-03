@@ -149,3 +149,33 @@ Then('the stacktrace contains {string} equal to {string}') do |field_path, expec
   end
   fail("No field_path #{field_path} found with value #{expected_value}") unless found
 end
+
+Then('the event {string} equals the platform-specific string:') do |field_path, platform_values|
+  test_string_platform_values('error', "events.0.#{field_path}", platform_values)
+end
+
+# Then('the event {string} equals the version-dependent string:') do |field_path, table|
+#   payload = Maze::Server.errors.current[:body]
+#   actual_value = Maze::Helper.read_key_path(payload, "events.0.#{field_path}")
+
+#   expected_values = table.hashes
+
+#   current_version = ENV['RN_VERSION']
+#   is_new_arch = ENV['RCT_NEW_ARCH_ENABLED'] == 'true'
+
+#   # expected_values is an array of hashes, each hash has 3 keys: version (string), new_arch (boolean) and value (string)
+  
+#   # filter expected_values for the current version, or 'default' if current_version is nil
+#   values_for_version = expected_values.select do |hash|
+#     current_version == current_version || hash['version'] == 'default'
+#   end
+
+#   # filter values_for_version for the new_arch value
+#   values_for_version_and_arch = values_for_version.select do |hash|
+#     hash['new_arch'] == is_new_arch
+#   end
+
+
+
+#   test_string_platform_values(request_type, field_path, platform_values)
+# end

@@ -16,7 +16,7 @@ Scenario: App data in Handled JS error
   And the event "app.duration" is not null
   And the event "app.durationInForeground" is not null
   And the event "app.codeBundleId" equals "1.2.3-r00110011"
-  And the event "app.id" equals the platform-dependent string:
+  And the event "app.id" equals the platform-specific string:
   | android | com.reactnative                        |
   | ios     | com.bugsnag.fixtures.reactnative |
   And the event "app.type" equals the platform-dependent string:
@@ -72,8 +72,12 @@ Scenario: App data in Handled native error
   | android | android |
   | ios     | iOS     |
 
-# Skipped on iOS New Arch pending PLAT-12184
-@skip_ios_new_arch
+
+  # And the event "exceptions.0.errorClass" equals the version-dependent string:
+  # | platform | version | arch | value |
+  # | android  | 0.74    | new  | Error |
+  # | android  | 0.74    | old  | java.lang.RuntimeException |
+
 Scenario: App data in Unhandled native error
   When I run "AppNativeUnhandledScenario" and relaunch the crashed app
   And I configure Bugsnag for "AppNativeUnhandledScenario"
