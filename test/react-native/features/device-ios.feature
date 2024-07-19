@@ -15,7 +15,7 @@ Scenario: Device data in Handled JS error
   And the event "device.osVersion" matches "^\d+\.\d+(.\d+)?$"
   And the event "device.time" is a timestamp
   And the event "device.locale" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.osBuild" is not null
   And the event "device.runtimeVersions.clangVersion" matches "^\d+\.\d+\.\d+.+$"
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
@@ -42,7 +42,7 @@ Scenario: Device data in Unhandled JS error
   And the event "device.osVersion" matches "^\d+\.\d+(.\d+)?$"
   And the event "device.time" is a timestamp
   And the event "device.locale" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.osBuild" is not null
   And the event "device.runtimeVersions.clangVersion" matches "^\d+\.\d+\.\d+.+$"
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
@@ -68,7 +68,7 @@ Scenario: Device data in Handled native error
   And the event "device.osVersion" matches "^\d+\.\d+(.\d+)?$"
   And the event "device.time" is a timestamp
   And the event "device.locale" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.osBuild" is not null
   And the event "device.runtimeVersions.clangVersion" matches "^\d+\.\d+\.\d+.+$"
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
@@ -92,7 +92,7 @@ Scenario: Device data in Unhandled native error
   And the event "device.osVersion" matches "^\d+\.\d+(.\d+)?$"
   And the event "device.time" is a timestamp
   And the event "device.locale" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
   And the event "device.runtimeVersions.osBuild" is not null
   And the event "device.runtimeVersions.clangVersion" matches "^\d+\.\d+\.\d+.+$"

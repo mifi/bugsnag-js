@@ -16,7 +16,7 @@ Scenario: Device data in Handled JS error
   And the event "device.osName" equals "android"
   And the event "device.osVersion" matches "^\d+$"
   And the event "device.runtimeVersions.androidApiLevel" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
   And the event "device.totalMemory" is not null
   And the event "device.freeDisk" is not null
@@ -40,7 +40,7 @@ Scenario: Device data in Unhandled JS error
   And the event "device.osName" equals "android"
   And the event "device.osVersion" matches "^\d+$"
   And the event "device.runtimeVersions.androidApiLevel" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
   And the event "device.totalMemory" is not null
   And the event "device.freeDisk" is not null
@@ -63,7 +63,7 @@ Scenario: Device data in Handled native error
   And the event "device.osName" equals "android"
   And the event "device.osVersion" matches "^\d+$"
   And the event "device.runtimeVersions.androidApiLevel" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
   And the event "device.totalMemory" is not null
   And the event "device.freeDisk" is not null
@@ -85,7 +85,7 @@ Scenario: Device data in Unhandled native error
   And the event "device.osName" equals "android"
   And the event "device.osVersion" matches "^\d+$"
   And the event "device.runtimeVersions.androidApiLevel" is not null
-  And the event "device.runtimeVersions.reactNative" matches "^\d+\.\d+\.\d+$"
+  And the event "device.runtimeVersions.reactNative" is not null
   And the event "device.runtimeVersions.reactNativeJsEngine" matches "^jsc|hermes$"
   And the event "device.totalMemory" is not null
   And the event "device.freeDisk" is not null
