@@ -96,24 +96,28 @@ Scenario: Handled JS error with native stacktrace
   And the error payload field "events.0.exceptions.0.stacktrace.0.type" equals "cocoa"
 
   # the javascript part follows
-  # On 0.74 New Arch there is no JS stacktrace - see PLAT-12193
+  # On 0.74+ New Arch there is no JS stacktrace - see PLAT-12193
   And the event "exceptions.0.stacktrace.20.columnNumber" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.file" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.lineNumber" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.type" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @null                   |
   | old  | default | @null                   |
@@ -140,24 +144,28 @@ Scenario: Unhandled JS error with native stacktrace
   And the error payload field "events.0.exceptions.0.stacktrace.0.type" equals "cocoa"
 
   # the javascript part follows
-  # On 0.74 New Arch there is no JS stacktrace - see PLAT-12193
+  # On 0.74+ New Arch there is no JS stacktrace - see PLAT-12193
   And the event "exceptions.0.stacktrace.20.columnNumber" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.file" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.lineNumber" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @not_null               |
   | old  | default | @not_null               |
   And the event "exceptions.0.stacktrace.20.type" equals the version-dependent string:
   | arch | version | value                   |
+  | new  | 0.75    | @skip                   |
   | new  | 0.74    | @skip                   |
   | new  | default | @null                   |
   | old  | default | @null                   |
