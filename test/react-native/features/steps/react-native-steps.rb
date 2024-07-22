@@ -178,7 +178,7 @@ Then('the event {string} equals the version-dependent string:') do |field_path, 
 
   raise("There is no expected value for the current arch \"#{arch}\"") if arch_values.empty?
 
-  current_version = ENV['RN_VERSION']
+  current_version = ENV['RN_VERSION'][0,4]
   version_values = arch_values.select do |hash|
     hash['version'] == current_version
   end
