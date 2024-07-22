@@ -90,6 +90,17 @@ if (!process.env.SKIP_GENERATE_FIXTURE) {
 
   fs.writeFileSync(`${fixtureDir}/ios/Podfile`, podfileContents)
 
+  // update gradle.properties to enable/disable new arch if necessary
+  let gradleProperties = fs.readFileSync(`${fixtureDir}/android/gradle.properties`, 'utf8')
+
+  if (process.env.RCT_NEW_ARCH_ENABLED === '1') {
+    gradleProperties = gradleProperties.replace(/newArchEnabled=false/, 'newArchEnabled=true')
+  } else {
+    gradleProperties = gradleProperties.replace(/newArchEnabled=true/, 'newArchEnabled=false')
+  }
+
+  fs.writeFileSync(`${fixtureDir}/android/gradle.properties`, gradleProperties)
+
   const fixtureDependencyArgs = DEPENDENCIES.join(' ')
 
   // install test fixture dependencies and local packages
@@ -105,14 +116,6 @@ if (!process.env.SKIP_GENERATE_FIXTURE) {
 }
 
 if (process.env.BUILD_ANDROID === 'true' || process.env.BUILD_ANDROID === '1') {
-  if (process.env.RCT_NEW_ARCH_ENABLED === 'true' || process.env.RCT_NEW_ARCH_ENABLED === '1') {
-    // If we're building with the new architecture, replace the gradle.properties file
-    fs.copyFileSync(
-      resolve(replacementFilesDir, 'android/newarch.gradle.properties'),
-      resolve(fixtureDir, 'android/gradle.properties')
-    )
-  }
-
   // build the android app
   execFileSync('./gradlew', ['assembleRelease'], { cwd: `${fixtureDir}/android`, stdio: 'inherit' })
   fs.copyFileSync(`${fixtureDir}/android/app/build/outputs/apk/release/app-release.apk`, `${fixtureDir}/reactnative.apk`)
