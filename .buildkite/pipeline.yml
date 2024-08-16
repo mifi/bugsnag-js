@@ -56,7 +56,7 @@ steps:
   - label: ":aws-lambda: AWS Lambda tests"
     timeout_in_minutes: 35
     agents:
-      queue: "opensource-mac-cocoa-10.15"
+      queue: "macos-14"
     commands:
       # force the NPM registry as the default on CI is artifactory, which can't
       # currently install from our lockfile
